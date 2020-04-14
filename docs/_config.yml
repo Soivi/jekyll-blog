@@ -31,7 +31,8 @@ github_username:  jekyll
 
 # Build settings
 #theme: minima
-#plugins:
+plugins:
+   - jekyll-paginate
 #  - jekyll-feed
 
 # Exclude from processing.
@@ -57,3 +58,5 @@ github_username:  jekyll
 sass:
   sass_dir: assets/css
   style: compressed
+
+paginate: 2
