@@ -1,14 +1,16 @@
-<section id="posts" class="py-5">
+<section id="posts" class="py-3">
   <div class="container">
-    <div class="row">
-      <div class="col">
         {% for post in paginator.posts %}
-          <div>
+          {% if forloop.index == 1 %}
+                <div class="row">
+          {% elsif forloop.index == 4 %}
+                <div class="row">
+          {% endif %}
+          <div class="col-md-4">
             <h2><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
             <p class="text-info lead">
               {{ post.date | date: "%b %-d, %Y" }}
             </p>
-
             <p>
               {% if post.summary %}
                 {{ post.summary }}
@@ -16,9 +18,13 @@
                 {{ post.excerpt }}
               {% endif %}
             </p>
+            <p><a class="btn btn-secondary" href="{{ post.url | prepend: site.baseurl }}" role="button">View post &raquo;</a></p>
           </div>
+          {% if forloop.index == 3 %}
+                </div>
+          {% elsif forloop.index == 6 %}
+                </div>
+          {% endif %}
         {% endfor %}
-      </div>
-    </div>
   </div>
 </section>
