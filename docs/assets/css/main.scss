@@ -2,3 +2,10 @@
 ---
 
 @import 'bootstrap/bootstrap';
+
+// Code block
+pre.highlight {
+    @extend .p-2;
+    @extend .bg-dark;
+    @extend .text-white;
+}
