@@ -2,23 +2,25 @@
   <div class="container">
         {% for post in paginator.posts %}
           {% if forloop.index == 1 %}
-                <div class="row">
+                <div class="card-deck mb-3 text-center">
           {% elsif forloop.index == 4 %}
-                <div class="row">
+                <div class="card-deck mb-3 text-center">
           {% endif %}
-          <div class="col-md-4">
-            <h2><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
-            <p class="text-info lead">
-              {{ post.date | date: "%b %-d, %Y" }}
-            </p>
-            <p>
+          <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h2 h4 class="my-0 font-weight-normal"><a class="text-dark" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
+            </div>
+            <div class="card-body">
+            <p class="card-text">
               {% if post.summary %}
                 {{ post.summary }}
               {% else %}
                 {{ post.excerpt }}
               {% endif %}
             </p>
-            <p><a class="btn btn-secondary" href="{{ post.url | prepend: site.baseurl }}" role="button">View post &raquo;</a></p>
+            <p class="card-text"><small class="text-muted">{{ post.date | date: "%b %-d, %Y" }}</small></p>
+            <a type="button" class="btn btn-secondary" href="{{ post.url | prepend: site.baseurl }}" role="button">View post &raquo;</a>
+          </div>
           </div>
           {% if forloop.index == 3 %}
                 </div>
