@@ -1,10 +1,10 @@
 I have collected some Linux commands and tricks that Red Team can use for their evil deeds. All these commands and tricks have been tested against Ubuntu 16.04 server and attackers computer is Kali Linux 2019.3.
 
-# Legal disclaimer
+#### Legal disclaimer
 The methods are presented for educational purposes only.  
 **You are responsible** for not using the techniques for **illegal purposes**.
 
-# Label meanings
+#### Label meanings
 **[victim ip address]** means add your target IP address example 127.0.0.1  
 **[victim ip address zone]** means add your target IP address zone example 10.1.1.0/24  
 **[decoy ip address]** means add a decoy address that you want to frame to be the attacker example 127.0.0.2  
