@@ -3,5 +3,28 @@ layout: default
 title: About
 ---
 
-<h1 class="text-center">About</h1>
+<h1 class="text-center">About Me</h1>
 
+<div class="container">
+<p>Time is: <strong id="clock"></strong></p>
+</div>
+
+<script>
+function time() {
+    const time = new Date();
+    let hr  = addZero(String(time.getHours()));
+    let min = addZero(String(time.getMinutes()));
+    let sec = addZero(String(time.getSeconds()));
+    let clockElement = document.getElementById("clock")
+    clockElement.innerHTML = hr + ":" + min + ":" + sec;
+}
+
+function addZero(number) { 
+            if (number <= 9) 
+                return "0" + number; 
+            else 
+                return number; 
+}
+
+setInterval(() => {time()}, 100);
+</script>
