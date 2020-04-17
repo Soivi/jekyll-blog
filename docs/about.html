@@ -8,33 +8,18 @@ title: About
 
 
 <div class="container">
-    <hr>
-    <blockquote class="blockquote">
-        <p class="mb-0" id="quoteBlock"></p>
-        <footer class="blockquote-footer" id="actorBlock"></footer>
-    </blockquote>
-    <p>Time is: <strong id="clock"></strong></p>
+  <h3>Movie Quotes</h3>
+  <hr>
+  <blockquote class="blockquote">
+      <p class="mb-0" id="quoteBlock"></p>
+      <footer class="blockquote-footer" id="actorBlock"></footer>
+      <p><a href="https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Movie_Quotes"><small class="text-muted">Source: Wikipedia</small></a></p>
+  </blockquote>
 </div>
 
 
 
 <script>
-function getTime() {
-    const time = new Date();
-    let hr  = addZero(String(time.getHours()));
-    let min = addZero(String(time.getMinutes()));
-    let sec = addZero(String(time.getSeconds()));
-    let clockElement = document.getElementById("clock")
-    clockElement.innerHTML = hr + ":" + min + ":" + sec;
-}
-
-function addZero(number) { 
-            if (number <= 9) 
-                return "0" + number; 
-            else 
-                return number; 
-}
-
 var allQuotes = '{"quotes":[' +
 '{' +
    '"quote": "Wait a minute, wait a minute. You ain\'t heard nothin\' yet!",' +
@@ -741,8 +726,6 @@ function getQuote() {
             " (" +  quotesObject.quotes[number].year + ")</cite>";
 };
 
-getTime()
-getQuote()
-setInterval(() => {getTime()}, 100);
+getQuote();
 setInterval(() => {getQuote()}, 15000);
 </script>
