@@ -11,7 +11,7 @@
       </address>
     </div>
     <div class="col-sm">
-    <p class="text-center"><strong id="clock"></strong></p>
+      <p class="text-center"><strong id="date1"></strong><br><strong id="clock"></strong></p>
     </div>
     <div class="col-sm">
       <p class="text-right"><a href="#">Back to top</a></p>
@@ -25,8 +25,13 @@ function getTime() {
     let hr  = addZero(String(time.getHours()));
     let min = addZero(String(time.getMinutes()));
     let sec = addZero(String(time.getSeconds()));
+    let day = addZero(String(time.getDate()));
+    let month = addZero(String(time.getMonth()+1)); // January is 0.
+    let year = time.getFullYear();
     let clockElement = document.getElementById("clock")
     clockElement.innerHTML = hr + ":" + min + ":" + sec;
+    let date1Element = document.getElementById("date1")
+    date1Element.innerHTML = day + "." + month + "." + year;
 }
 
 function addZero(number) { 
