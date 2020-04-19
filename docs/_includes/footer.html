@@ -1,37 +1,34 @@
 <footer class="container">
   <hr>
-  <div class="row">
-    <div class="col-sm">
-      <address>
-        Author:
-        </br>
-        <strong>Lauri Soivi</strong>
-        <br>
-        <a href="https://soivi.net">https://soivi.net</a>
-      </address>
-    </div>
-    <div class="col-sm">
-      <p class="text-center"><strong id="date1"></strong><br><strong id="clock"></strong></p>
-    </div>
-    <div class="col-sm">
-      <p class="text-right"><a href="#">Back to top</a></p>
-    </div>
-  </div>
+  <p class="text-secondary float-right text-right"><strong id="date"></strong><br><strong id="clock"></strong></p>
+  <address class="float-left">
+    Author: <strong>Lauri Soivi</strong>
+    <br>
+    <a href="https://soivi.net">https://soivi.net</a>
+  </address>
+  <p class="text-center"><a href="#">Back to top</a></p>
 </footer>
 
 <script>
-function getTime() {
+
+const months = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+let day = new Date().getDate();
+
+function updateTime() {
+    // Update time
     const time = new Date();
     let hr  = addZero(String(time.getHours()));
     let min = addZero(String(time.getMinutes()));
     let sec = addZero(String(time.getSeconds()));
-    let day = addZero(String(time.getDate()));
-    let month = addZero(String(time.getMonth()+1)); // January is 0.
-    let year = time.getFullYear();
     let clockElement = document.getElementById("clock")
     clockElement.innerHTML = hr + ":" + min + ":" + sec;
-    let date1Element = document.getElementById("date1")
-    date1Element.innerHTML = day + "." + month + "." + year;
+    // If day changes change date too
+    if(day != new Date().getDate()) {
+      updateDate();
+    }
 }
 
 function addZero(number) { 
@@ -41,8 +38,26 @@ function addZero(number) {
                 return number; 
 }
 
-getTime();
-setInterval(() => {getTime()}, 100);
+function updateDate() {
+    const date = new Date();
+    day = addZero(String(date.getDate()));
+    let dayText = String(day);
+    if(day % 10 == 1 && Math.floor(day / 10) != 1) {
+      dayText += "st";
+    } else if(day % 10 == 2 && Math.floor(day / 10) != 1) {
+      dayText += "nd";
+    } else if(day % 10 == 3 && Math.floor(day / 10) != 1) {
+      dayText += "rd";
+    } else {
+      dayText += "th";
+    }
+    let dateElement = document.getElementById("date")
+    dateElement.innerHTML = dayText + " " + months[date.getMonth()] + " " + date.getFullYear();
+}
+
+updateTime();
+updateDate();
+setInterval(() => {updateTime()}, 100);
 </script>
 
 
