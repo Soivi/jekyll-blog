@@ -1,0 +1,27 @@
+<div class="container">
+  <h3>Movie Quotes</h3>
+  <hr>
+  <blockquote class="blockquote">
+      <p class="mb-0" id="quoteBlock"></p>
+      <footer class="blockquote-footer" id="actorBlock"></footer>
+      <p><a href="https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Movie_Quotes"><small class="text-muted">Source: Wikipedia</small></a></p>
+  </blockquote>
+</div>
+
+<!-- Get allQuotes data in -->
+<script src="{{ '/assets/js/allQuotesData.js' | relative_url }}"></script>
+
+<script>
+function getQuote() {
+    quotesObject = JSON.parse(allQuotes);
+    let number = Math.floor(Math.random() * quotesObject.quotes.length); 
+    document.getElementById("quoteBlock").innerHTML = quotesObject.quotes[number].quote;
+    document.getElementById("actorBlock").innerHTML = quotesObject.quotes[number].character +
+            " (" +  quotesObject.quotes[number].actor + ")" + " in " +
+            "<cite>" + quotesObject.quotes[number].movie +
+            " (" +  quotesObject.quotes[number].year + ")</cite>";
+};
+
+getQuote();
+setInterval(() => {getQuote()}, 10000);
+</script>
