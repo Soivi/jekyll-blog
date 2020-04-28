@@ -1,0 +1,88 @@
+---
+layout: default
+title: Terminal
+---
+
+<div class="container py-3">
+    <div id="terminal"></div>
+</div>
+
+<script src="https://unpkg.com/jquery.terminal@2.15.4/js/jquery.terminal.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/jquery.terminal@2.15.4/css/jquery.terminal.min.css"/>
+<script>
+let history = [];
+let commands = [
+            "help",
+            "myname [name]",
+            "nmap -p- -T4 [ipaddress]",
+            "rm [file]",
+            "rm -r [folder]",
+            "history"
+];
+
+jQuery(function($, undefined) {
+    $("#terminal").terminal(function(command) {
+        history.push(command);
+        let parameters = command.split(" ");
+        // help
+        if(parameters[0] == "help") {
+            this.echo("Working commands are:");
+            for (let i = 0; i < commands.length; ++i) {
+                this.echo(commands[i]);
+            }
+        // myname
+        } else if (parameters[0] == "myname") {
+            if(parameters.length == 2) {
+                this.echo("Greetings " + parameters[1] + "!");
+            } else {
+                this.echo("Error. Syntax is: '" + commands[1] + "'");
+            }
+        // nmap
+        } else if (parameters[0] == "nmap") {
+            if(parameters.length == 4 && parameters[1] == "-p-" && parameters[2] == "-T4") {
+                let thisObject = this;
+                let time = performance.now();
+                // Get ports
+                $.getJSON("{{ '/assets/json/ports.json' | relative_url }}", function(result){
+                    thisObject.echo("Starting Nmap 7.70 ( http://nmap.org )");
+                    thisObject.echo("Nmap scan report for " + parameters[3]);
+                    thisObject.echo("Host is up.");
+                    thisObject.echo("Not shown: " + (65535 - result.ports.length) + " closed ports");
+                    thisObject.echo("PORT\tSTATE\tSERVICE");
+                    // Loop all ports
+                    for (let i = 0; i < result.ports.length; ++i) {
+                        thisObject.echo(result.ports[i].port + "/" + result.ports[i].protocol + "\topen\t" + result.ports[i].service);
+                    }
+                    thisObject.echo("Nmap done: 1 IP address (1 host up) scanned in " + ((performance.now() - time) / 1000).toFixed(2) + " seconds");
+                });
+            } else {
+                this.echo("Error. Syntax is: '" + commands[2] + "'");
+            }
+        // rm
+        } else if (parameters[0] == "rm") {
+            if(parameters.length == 2) {
+                this.echo("File " + parameters[1] + " deleted");
+            } else if (parameters.length == 3 && parameters[1] == "-r") {
+                this.echo("Folder " + parameters[2] + " deleted");
+            } else {
+                this.echo("Error. Syntax is: '" + commands[3] + "' or '" + commands[4] + "'");
+            }
+        // history
+        } else if (parameters[0] == "history") {
+            if(parameters.length == 1) {
+                for (let i = 0; i < history.length; ++i) {
+                    this.echo(history[i]);
+                }
+            } else {
+                this.echo("Error. Syntax is: '" + commands[5]) + "'";
+            }
+        // command not found
+        } else {
+            this.echo("Command '"+ parameters[0] +"' not found");
+            this.echo("type 'help' to see all commands");
+        }
+    }, {
+        greetings: "JavaScript Terminal\n2020 Lauri Soivi. All rights reserved\n\ntype 'help' to see all commands"
+    });
+});
+</script>
